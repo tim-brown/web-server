@@ -2,6 +2,7 @@
 (require racket/port
          racket/match
          racket/contract
+         racket/string
          net/base64
          file/md5
          web-server/http/request-structs)
@@ -20,7 +21,7 @@
    #"WWW-Authenticate" 
    (string->bytes/utf-8
     (format "Digest realm=\"~a\", qop=\"auth\", nonce=\"~a\" opaque=\"~a\""
-            realm nonce opaque))))
+            realm (string-trim (bytes->string/utf-8 nonce)) opaque))))
 
 ;; Receiving
 (require parser-tools/lex
